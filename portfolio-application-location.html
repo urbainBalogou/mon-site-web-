@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Système de réservation de voitures - Urbain Balogou</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <!-- Google Tag Manager -->
     <script>
@@ -14,8 +15,6 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-W7DWHD3J');
     </script>
-    <!-- End Google Tag Manager -->
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGYQ8V3DTJ"></script>
     <script>
@@ -24,71 +23,816 @@
         gtag('js', new Date());
         gtag('config', 'G-DGYQ8V3DTJ');
     </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color1: #D89584;
+            --color1-dark: #c7816a;
+            --color1-light: #e5a896;
+            --color2: #F4F4F4;
+            --dark: #0f172a;
+            --dark-secondary: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f8fafc;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, var(--color1) 0%, var(--color1-light) 100%);
+            --gradient-dark: linear-gradient(135deg, var(--color1-dark) 0%, var(--color1) 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #fafafa 0%, var(--color2) 50%, #f0f0f0 100%);
+            min-height: 100vh;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes drive {
+            0%, 100% {
+                transform: translateX(0px);
+            }
+            50% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Header */
+        .portfolio-header {
+            background: var(--gradient);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cars" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 5 10 L 15 10 M 10 5 L 10 15" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23cars)"/></svg>');
+        }
+
+        .portfolio-header-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            z-index: 2;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+            padding-left: 1rem;
+        }
+
+        .portfolio-header-title i {
+            animation: drive 3s ease-in-out infinite;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .back-button {
+            background: rgba(216, 149, 132, 0.1);
+            color: var(--color1);
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--color1);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            margin-bottom: 3rem;
+        }
+
+        .back-button:hover {
+            background: var(--color1);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .section-subtitle {
+            color: var(--color1);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-description {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Car Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(216, 149, 132, 0.05);
+            border: 1px solid rgba(216, 149, 132, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(216, 149, 132, 0.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Main Content Card */
+        .car-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(216, 149, 132, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 1000px;
+            margin: 0 auto 4rem;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .car-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .car-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 40px 80px -20px rgba(216, 149, 132, 0.2);
+        }
+
+        .car-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark);
+            margin-bottom: 2.5rem;
+            text-align: justify;
+        }
+
+        /* Functions List */
+        .functions-section {
+            margin: 3rem 0;
+        }
+
+        .functions-title {
+            color: var(--color1);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .functions-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .functions-list li {
+            background: rgba(216, 149, 132, 0.05);
+            margin-bottom: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--color1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .functions-list li:hover {
+            background: rgba(216, 149, 132, 0.1);
+            transform: translateX(5px);
+        }
+
+        .functions-list li::before {
+            content: '🚗';
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Tech Section */
+        .tech-section {
+            margin: 3rem 0;
+        }
+
+        .tech-title {
+            color: var(--color1);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .tech-tag {
+            background: rgba(216, 149, 132, 0.1);
+            color: var(--color1-dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            border: 1px solid rgba(216, 149, 132, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: var(--color1);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Screenshot Section */
+        .screenshot-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .screenshot-title {
+            color: var(--color1);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .screenshot-container {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-container:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .screenshot-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(216, 149, 132, 0.8), rgba(229, 168, 150, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .screenshot-container:hover .screenshot-overlay {
+            opacity: 1;
+        }
+
+        .view-button {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--color1);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: var(--gradient-dark);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-top: 6rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 30px 30px 0 0;
+            overflow: hidden;
+        }
+
+        .contact-frame {
+            width: 100%;
+            border: none;
+            height: 400px;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .portfolio-header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .section-description {
+                font-size: 1.1rem;
+            }
+
+            .car-card {
+                padding: 2rem 1.5rem;
+                margin: 0 1rem 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .tech-grid {
+                justify-content: center;
+            }
+
+            .hero-section {
+                padding: 4rem 0 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .car-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .tech-tag {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .functions-list li {
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        /* Background decoration */
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: 
+                radial-gradient(circle at 25% 25%, var(--color1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, var(--color1-light) 0%, transparent 50%);
+        }
+    </style>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7DWHD3J" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
-    <!-- HEADER -->
+    <!-- Background Decoration -->
+    <div class="bg-decoration"></div>
+
+    <!-- Header -->
     <header class="portfolio-header">
-        <div class="texte-avec-ligne-verticale" style="margin-left:16px; margin-top:22px; height:45px;">
-            <p class="portfolio-header-title">Urbain Balogou</p>
-        </div>
-        <a class="contact-button contact-button-portfolio"
-            href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou19.com">ME CONTACTER</a>
+        <h1 class="portfolio-header-title">
+            <i class="fas fa-car"></i>
+            Urbain Balogou
+        </h1>
+        <a class="contact-button" href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou19.com">
+            <i class="fas fa-envelope"></i>
+            ME CONTACTER
+        </a>
     </header>
 
-    <!-- SECTION TITRE -->
-    <div class="section section-grise1" style="padding-top: 100px;">
-        <a class="portfolio-back" href="index.html" style="color: var(--color1); text-decoration: none; margin-bottom: 20px; display: inline-block;">← Retour au portfolio</a>
-        <div class="separateur"></div>
-        <h1 class="portfolio">Portfolio</h1>
-        <h2 class="portfolio">Système de réservation de voitures en ligne</h2>
-        <p style="text-align: center; color: var(--gray); font-size: 1.2rem;">Plateforme web de location de voitures</p>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <a class="back-button reveal" href="index.html">
+                <i class="fas fa-arrow-left"></i>
+                Retour au portfolio
+            </a>
+            
+            <div class="section-subtitle reveal">Portfolio</div>
+            <h1 class="section-title reveal">Système de réservation</h1>
+            <h2 class="section-title reveal">de voitures en ligne</h2>
+            <p class="section-description reveal">
+                Plateforme web complète de location de voitures avec gestion avancée
+            </p>
 
-    <!-- SECTION CONTENU -->
-    <div class="section">
-        <div class="texte-avec-ligne-verticale" style="max-width: 800px; margin: 0 auto;">
-            <p>Un projet complet de plateforme web de location de voitures, permettant aux utilisateurs de consulter les véhicules disponibles et de réserver en ligne.</p>
-
-            <div style="margin-top: 30px;">
-                <h3 style="color: var(--color1); margin-bottom: 15px;">Fonctionnalités clés :</h3>
-                <ul style="padding-left: 20px;">
-                    <li style="margin-bottom: 10px;">Consultation des caractéristiques des véhicules (prix, type de carburant, nombre de sièges, etc.)</li>
-                    <li style="margin-bottom: 10px;">Réservation personnalisée avec sélection de dates, lieu de livraison, et options comme "avec ou sans chauffeur"</li>
-                    <li style="margin-bottom: 10px;">Gestion de l'authentification pour les utilisateurs (inscription, connexion, réservations personnelles)</li>
-                    <li style="margin-bottom: 10px;">Système de gestion dynamique pour les administrateurs (ajout de véhicules, mise à jour de la disponibilité, suivi des réservations)</li>
-                </ul>
-
-                <div style="margin-top: 30px;">
-                    <h3 style="color: var(--color1); margin-bottom: 15px;">Technologies utilisées :</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
-                        <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Python</span>
-                        <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Django</span>
+            <!-- Features Grid -->
+            <div class="features-grid reveal">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
                     </div>
+                    <h3 class="feature-title">Consultation Véhicules</h3>
+                    <p class="feature-description">Parcourir les caractéristiques détaillées de chaque véhicule disponible</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="feature-title">Réservation Personnalisée</h3>
+                    <p class="feature-description">Système flexible avec dates, lieux et options chauffeur</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="feature-title">Gestion Administrative</h3>
+                    <p class="feature-description">Interface complète pour administrer véhicules et réservations</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="feature-title">Authentification</h3>
+                    <p class="feature-description">Système sécurisé de comptes utilisateurs personnalisés</p>
                 </div>
             </div>
 
-            <div style="text-align: center; margin-top: 50px;">
-                <h3 style="color: var(--color1); margin-bottom: 30px;">Capture d'écran :</h3>
-                <a target="_blank" href="https://urbain.pythonanywhere.com">
-                    <img src="location1.png" alt="Interface de réservation de voitures" style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
-                </a>
-            </div>
+            <!-- Main Content Card -->
+            <div class="car-card reveal">
+                <p class="car-description">
+                    Un projet complet de plateforme web de location de voitures, permettant aux utilisateurs de consulter les véhicules disponibles et de réserver en ligne. Cette solution offre une expérience utilisateur fluide et une gestion administrative efficace.
+                </p>
 
-            <div style="text-align: center; margin-top: 50px;">
-                <a class="contact-button" target="_blank" href="https://urbain.pythonanywhere.com" style="display: inline-block; padding: 12px 30px; background-color: var(--color1); color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: all 0.3s ease;">
-                    Consulter le projet
-                </a>
+                <!-- Functions Section -->
+                <div class="functions-section slide-in">
+                    <h3 class="functions-title">
+                        <i class="fas fa-cogs"></i>
+                        Fonctionnalités clés
+                    </h3>
+                    <ul class="functions-list">
+                        <li>Consultation des caractéristiques des véhicules (prix, type de carburant, nombre de sièges, etc.)</li>
+                        <li>Réservation personnalisée avec sélection de dates, lieu de livraison, et options comme "avec ou sans chauffeur"</li>
+                        <li>Gestion de l'authentification pour les utilisateurs (inscription, connexion, réservations personnelles)</li>
+                        <li>Système de gestion dynamique pour les administrateurs (ajout de véhicules, mise à jour de la disponibilité, suivi des réservations)</li>
+                    </ul>
+                </div>
+
+                <!-- Tech Section -->
+                <div class="tech-section slide-in">
+                    <h3 class="tech-title">
+                        <i class="fas fa-code"></i>
+                        Technologies utilisées
+                    </h3>
+                    <div class="tech-grid">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Bootstrap</span>
+                    </div>
+                </div>
+
+                <!-- Screenshot Section -->
+                <div class="screenshot-section slide-in">
+                    <h3 class="screenshot-title">
+                        <i class="fas fa-desktop"></i>
+                        Interface de l'application
+                    </h3>
+                    <div class="screenshot-container">
+                        <img src="location1.png" alt="">
+                        <div style="width: 100%; height: 400px; background: linear-gradient(135deg, var(--color1) 0%, var(--color1-light) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; border-radius: 20px;">
+                            <div style="text-align: center;">
+                                <i class="fas fa-car" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                                <div style="font-size: 1.5rem; font-weight: 600;">Interface de réservation</div>
+                                <div style="font-size: 1rem; opacity: 0.8; margin-top: 0.5rem;">Système de location de voitures</div>
+                            </div>
+                        </div>
+                        <div class="screenshot-overlay">
+                            <a href=https://djoker963djo.pythonanywhere.com/" target="_blank" class="view-button">
+                                <i class="fas fa-external-link-alt"></i>
+                                Voir le projet en ligne
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="cta-section">
+                    <a class="cta-button" href="https://djoker963djo.pythonanywhere.com/" target="_blank">
+                        <i class="fas fa-globe"></i>
+                        Consulter le projet en ligne
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- IFRAME CONTACT -->
-    <iframe src="contact-frame.html" scrolling="no" style="width: 100%; border: none; height: 400px; margin-top: 40px;"></iframe>
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <iframe class="contact-frame" src="contact-frame.html" scrolling="no" title="Formulaire de contact"></iframe>
+    </section>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements with reveal and slide-in classes
+        document.querySelectorAll('.reveal, .slide-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced scroll reveal with staggered animations
+        let revealDelay = 0;
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.style.transitionDelay = `${revealDelay}ms`;
+            revealDelay += 150;
+        });
+
+        // Parallax effect for background decoration
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const decoration = document.querySelector('.bg-decoration');
+            if (decoration) {
+                decoration.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+
+        // Dynamic tech tag animations
+        document.querySelectorAll('.tech-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.animation = 'pulse 0.6s ease-in-out';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.animation = '';
+            });
+        });
+
+        // Feature cards hover effect
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.feature-icon');
+                icon.style.animation = 'drive 1s ease-in-out infinite';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.feature-icon');
+                icon.style.animation = '';
+            });
+        });
+
+        // Functions list items animation
+        document.querySelectorAll('.functions-list li').forEach((item, index) => {
+            item.style.animationDelay = `${index * 100}ms`;
+        });
+
+        // CTA button interaction
+        document.querySelector('.cta-button')?.addEventListener('mouseenter', function() {
+            this.style.animation = 'pulse 1s ease-in-out';
+        });
+
+        document.querySelector('.cta-button')?.addEventListener('mouseleave', function() {
+            this.style.animation = '';
+        });
+    </script>
 </body>
 </html>

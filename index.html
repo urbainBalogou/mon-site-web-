@@ -3,133 +3,1290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urbain Balogou</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-W7DWHD3J');</script>
-    <!-- End Google Tag Manager -->
+    <title>Urbain Balogou - Développeur Full Stack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGYQ8V3DTJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-DGYQ8V3DTJ');
-    </script>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --dark-secondary: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-role {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-info a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: white;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: var(--light-gray);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .skill-category {
+            text-align: center;
+        }
+
+        .skill-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .skill-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            background: var(--light-gray);
+            color: var(--gray);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 6rem 0;
+            background: var(--light-gray);
+        }
+
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            color: var(--gray);
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-card:hover .portfolio-image {
+            transform: scale(1.05);
+        }
+
+        .portfolio-content {
+            padding: 2rem;
+        }
+
+        .portfolio-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .portfolio-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .portfolio-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--light-gray);
+            color: var(--gray);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .portfolio-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .portfolio-link:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: var(--dark);
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info-card {
+            background: var(--dark-secondary);
+            padding: 3rem;
+            border-radius: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-secondary);
+            padding: 2rem 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7DWHD3J"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <!--COUVERTURE -->
-    <div class="cover">
-        <img class="cover-profile" src="profi.png" alt="">
-        <h1>Urbain Balogou</h1>
-        <p>Développeur | Maintenancier en informatique</p>
-
-        <div style="text-align: center;">
-            <a class="contact-button" href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou.com">ME CONTACTER</a>
-            <a class="contact-button" href="formations.html">PROPOSITION DE FORMATION</a>
-        </div>
-
-        <div class="cover-contact">
-            <p><a href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou.com">mon_email@gmail.com</a></p>
-            <p><a href="tel:+22870436043">70 43 60 43</a></p>
-        </div>
-    </div>
-
-    <!-- SECTION GRISE 1 -->
-    <div class="section section-grise1">
-        <div class="separateur"></div>
-        <p style="margin-top: 0; font-family: Arial, sans-serif; line-height: 1.6; color: #333; text-align: justify;">
-            Je prends en charge la réalisation complète de vos <strong>projets web</strong>, <strong>applications mobiles</strong> et <strong>applications de bureau</strong>, de la conception à la livraison. J'assure également la <strong>maintenance et l'optimisation</strong> de vos ordinateurs portables pour garantir leur performance. 💻✨
-        </p>
-    </div>
-
-    <!-- SECTION BLANCHE -->
-    <div class="section">
-        <h2>En savoir plus</h2>
-        <img src="work.webp" class="col-contenu">
-        <div class="col-contenu float-right">
-            <div class="texte-avec-ligne-verticale">
-                <p>Passionné par la programmation depuis le plus jeune age, je suis maintenant un développeur professionnel assidue à mes tâches.<br><br>
-                    Expert dans les domaines du <b>web</b> et des <b>applications mobiles,bureau</b> et dans la <b>maintenance informatique</b>, je propose mes services personnalisés pour des missions freelance.</p>
-                <a href="https://drive.google.com/file/d/1bxDxUJX4ZD9uNdNncZCagHiHs7d89dR-/view?usp=drivesdk" target="_blank">En savoir plus sur mon profil</a>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Urbain B.</div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#competences">Compétences</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- SECTION GRISE 2 - PORTFOLIO -->
-    <div class="portfolio">
-        <h2 class="section-title">Portfolio</h2>
-        <div class="portfolio-grid">
-            <div class="portfolio-card">
-                <img src="project1small.jpg" alt="Restaurant Website" class="portfolio-image">
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Site web pour un restaurant</h3>
-                    <p class="portfolio-description">Un site web moderne et responsive pour un restaurant.</p>
-                    <a href="portfolio-site-restaurant.html" class="portfolio-link">Voir le projet →</a>
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-subtitle">
+                    <i class="fas fa-code"></i>
+                    Développeur Full Stack
+                </div>
+                <h1 class="hero-title">Urbain Balogou</h1>
+                <p class="hero-description">
+                    Je conçois et développe des solutions web et mobile innovantes, 
+                    de la conception à la livraison, tout en assurant la maintenance 
+                    et l'optimisation de vos systèmes informatiques.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn btn-primary">
+                        <i class="fas fa-eye"></i>
+                        Voir mes projets
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        <i class="fas fa-envelope"></i>
+                        Me contacter
+                    </a>
                 </div>
             </div>
-            <div class="portfolio-card">
-                <img src="ecommerce1.png" alt="E-commerce" class="portfolio-image">
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">E-commerce</h3>
-                    <p class="portfolio-description">Une plateforme e-commerce complète avec gestion de produits.</p>
-                    <a href="portfolio-application-ecommerce.html" class="portfolio-link">Voir le projet →</a>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <img src="projet3small.jpg" alt="Galaxy Game" class="portfolio-image">
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Jeu Application mobile "Galaxy"</h3>
-                    <p class="portfolio-description">Un jeu mobile captivant avec des graphismes impressionnants.</p>
-                    <a href="portfolio-application-galaxy.html" class="portfolio-link">Voir le projet →</a>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <img src="location.png" alt="Car Rental" class="portfolio-image">
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Site web de location de voiture</h3>
-                    <p class="portfolio-description">Une plateforme de location de voitures en ligne.</p>
-                    <a href="portfolio-application-location.html" class="portfolio-link">Voir le projet →</a>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <img src="plant.webp" alt="Plant Analyzer" class="portfolio-image">
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">PlantAnalyzer</h3>
-                    <p class="portfolio-description">Une application pour analyser la santé des plantes.</p>
-                    <a href="portfolio-application-plant.html" class="portfolio-link">Voir le projet →</a>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <img src="shot1.png" alt="CHARM" class="portfolio-image">
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">CHARM</h3>
-                    <p class="portfolio-description">Une application de gestion pour salons de coiffure.</p>
-                    <a href="portfolio-application-barbershop.html" class="portfolio-link">Voir le projet →</a>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <img src="road_alert1.jpg" alt="ROAD ALERT" class="portfolio-image">
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">ROAD ALERT</h3>
-                    <p class="portfolio-description">Une application pour alerter les conducteurs des dangers sur la route.</p>
-                    <a href="portfolio-application-road_alert.html" class="portfolio-link">Voir le projet →</a>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <div class="profile-img" style="background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <img src="profile.png" width="160" alt="">
+                    </div>
+                    <div class="profile-name">Urbain Balogou</div>
+                    <div class="profile-role">Développeur | Maintenancier IT</div>
+                    <div class="contact-info">
+                        <a href="mailto:urbainbalogou19@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                            urbainbalogou19@gmail.com
+                        </a>
+                        <a href="tel:+22870436043">
+                            <i class="fas fa-phone"></i>
+                            70 43 60 43
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- SECTION BLANCHE -->
-    <iframe src="contact-frame.html" scrolling="no"></iframe>
+    <!-- About Section -->
+    <section id="apropos" class="about">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">À propos de moi</div>
+                <h2 class="section-title">Passionné par la technologie</h2>
+                <p class="section-description">
+                    Développeur professionnel passionné par la programmation depuis le plus jeune âge,
+                    spécialisé dans les solutions web, mobiles et la maintenance informatique.
+                </p>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        Expert dans les domaines du <strong>développement web</strong>, des <strong>applications mobiles</strong>, 
+                        des <strong>applications de bureau</strong> et de la <strong>maintenance informatique</strong>, 
+                        je propose des services personnalisés pour des missions freelance.
+                    </p>
+                    <p>
+                        Mon approche se concentre sur la création de solutions robustes, 
+                        performantes et adaptées aux besoins spécifiques de chaque client.
+                    </p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">7+</div>
+                        <div class="stat-label">Projets réalisés</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Années d'expérience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Clients satisfaits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support disponible</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="competences" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Mes compétences</div>
+                <h2 class="section-title">Technologies maîtrisées</h2>
+                <p class="section-description">
+                    Une expertise technique complète pour répondre à tous vos besoins de développement
+                </p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="skill-title">Développement Web</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">React</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="skill-title">Applications Mobile</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Dart</span>
+                        <span class="skill-tag">Firebase</span>
+                        <span class="skill-tag">Android</span>
+                        <span class="skill-tag">iOS</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 class="skill-title">Applications Bureau</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">Electron</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="skill-title">Maintenance IT</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Réparation PC</span>
+                        <span class="skill-tag">Optimisation</span>
+                        <span class="skill-tag">Diagnostic</span>
+                        <span class="skill-tag">Support technique</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Mon travail</div>
+                <h2 class="section-title">Portfolio</h2>
+                <p class="section-description">
+                    Découvrez une sélection de mes projets les plus récents
+                </p>
+            </div>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
+                <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-card" data-category="web">
+                    <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-category">Site Web</div>
+                        <h3 class="portfolio-title">Site web pour restaurant</h3>
+                        <p class="portfolio-description">
+                            Un site web moderne et responsive pour un restaurant avec système de réservation
+                        </p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <a href="portfolio-site-restaurant.html" class="portfolio-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="ecommerce">
+                    <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-category">E-commerce</div>
+                        <h3 class="portfolio-title">Plateforme E-commerce</h3>
+                        <p class="portfolio-description">
+                            Une plateforme e-commerce complète avec gestion de produits, panier et paiement sécurisé
+                        </p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <a href="portfolio-application-ecommerce.html" class="portfolio-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="mobile">
+                    <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-category">Application Mobile</div>
+                        <h3 class="portfolio-title">Jeu Galaxy</h3>
+                        <p class="portfolio-description">
+                            Un jeu mobile captivant avec des graphismes impressionnants et gameplay addictif
+                        </p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                        <a href="portfolio-application-galaxy.html" class="portfolio-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="web">
+                    <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: flex; align-items: center; justify-content: center; color: #333; font-size: 2rem;">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-category">Site Web</div>
+                        <h3 class="portfolio-title">Site de location de voiture</h3>
+                        <p class="portfolio-description">
+                            Une plateforme de location de voitures en ligne avec système de réservation avancé
+                        </p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                        <a href="portfolio-application-location.html" class="portfolio-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="mobile">
+                    <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%); display: flex; align-items: center; justify-content: center; color: #333; font-size: 2rem;">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-category">Application Mobile</div>
+                        <h3 class="portfolio-title">PlantAnalyzer</h3>
+                        <p class="portfolio-description">
+                            Une application pour analyser la santé des plantes avec IA et recommandations personnalisées
+                        </p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">AI/ML</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                        <a href="portfolio-application-plant.html" class="portfolio-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="mobile">
+                    <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-category">Application Mobile</div>
+                        <h3 class="portfolio-title">CHARM - Salon de beauté</h3>
+                        <p class="portfolio-description">
+                            Plateforme de réservation pour salons de beauté avec marketplace de produits cosmétiques
+                        </p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                        <a href="https://play.google.com/store/apps/details?id=com.bhc.barbershop.barbershpo_flutter" target="_blank" class="portfolio-link">
+                            Voir sur Google Play <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="mobile">
+                    <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-category">Application Mobile</div>
+                        <h3 class="portfolio-title">ROAD ALERT</h3>
+                        <p class="portfolio-description">
+                            Application pour alerter les conducteurs des dangers sur la route en temps réel
+                        </p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">GPS</span>
+                            <span class="tech-tag">API Maps</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                        <a href="portfolio-application-road_alert.html" class="portfolio-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle" style="color: var(--primary);">Contact</div>
+                <h2 class="section-title" style="color: white;">Parlons de votre projet</h2>
+                <p class="section-description" style="color: rgba(255,255,255,0.8);">
+                    Besoin de discuter de votre projet et obtenir l'avis d'un expert ?
+                </p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h3 style="color: white; margin-bottom: 2rem; font-size: 1.5rem;">Restons en contact</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: white; margin-bottom: 0.5rem;">Email</h4>
+                            <a href="mailto:urbainbalogou19@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none;">
+                                urbainbalogou19@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: white; margin-bottom: 0.5rem;">Téléphone</h4>
+                            <a href="tel:+22870436043" style="color: rgba(255,255,255,0.8); text-decoration: none;">
+                                +228 70 43 60 43
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: white; margin-bottom: 0.5rem;">Localisation</h4>
+                            <p style="color: rgba(255,255,255,0.8); margin: 0;">Lomé, Togo</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: white; margin-bottom: 1rem;">Mes services</h4>
+                        <ul style="list-style: none; padding: 0; color: rgba(255,255,255,0.8);">
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary); margin-right: 0.5rem;"></i>Développement web</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary); margin-right: 0.5rem;"></i>Applications mobiles</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary); margin-right: 0.5rem;"></i>Applications de bureau</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary); margin-right: 0.5rem;"></i>Maintenance informatique</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="color: white; margin-bottom: 2rem;">Envoyez-moi un message</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" placeholder="Votre email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Sujet" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-textarea" placeholder="Votre message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <i class="fas fa-paper-plane"></i>
+                            Envoyer le message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:urbainbalogou19@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2024 Urbain Balogou. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            }
+        });
+
+        // Portfolio filters
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                portfolioCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeInUp 0.6s ease-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Add reveal class to elements and observe them
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.add('reveal');
+            observer.observe(section);
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Form submission
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = this.querySelector('input[placeholder="Votre nom"]').value;
+            const email = this.querySelector('input[placeholder="Votre email"]').value;
+            const subject = this.querySelector('input[placeholder="Sujet"]').value;
+            const message = this.querySelector('textarea').value;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:urbainbalogou19@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            
+            // Open mail client
+            window.location.href = mailtoLink;
+            
+            // Reset form
+            this.reset();
+            
+            // Show success message
+            alert('Votre client de messagerie va s\'ouvrir avec le message pré-rempli !');
+        });
+
+        // Add some dynamic effects
+        document.querySelectorAll('.portfolio-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Typing effect for hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-title');
+            const originalText = heroTitle.textContent;
+            setTimeout(() => {
+                typeWriter(heroTitle, originalText, 100);
+            }, 1000);
+        });
+    </script>
 </body>
 </html>

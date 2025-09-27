@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Application CHARM - Urbain Balogou</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:400,700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
 
   <!-- Google Tag Manager -->
@@ -14,7 +17,6 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-W7DWHD3J');
   </script>
-
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGYQ8V3DTJ"></script>
   <script>
@@ -23,6 +25,66 @@
     gtag('js', new Date());
     gtag('config', 'G-DGYQ8V3DTJ');
   </script>
+  <style>
+    /* Modern glassmorphism & grid for screenshots */
+    .barbershop-card {
+      background: rgba(255,255,255,0.18);
+      border-radius: 20px;
+      box-shadow: 0 4px 16px 0 rgb(99 102 241 / 0.08), 0 1.5px 8px 0 rgb(236 72 153 / 0.08);
+      backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      padding: 2.5rem 2rem;
+      margin: 0 auto;
+      max-width: 800px;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .barbershop-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px -10px rgb(99 102 241 / 0.12), 0 8px 24px -8px rgb(236 72 153 / 0.10);
+    }
+    .barbershop-tech-list span {
+      background: #f0f0f0;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.98rem;
+      color: #555;
+      font-family: 'JetBrains Mono', monospace;
+      box-shadow: 0 1px 4px 0 rgb(99 102 241 / 0.07);
+      margin-bottom: 8px;
+    }
+    .barbershop-screens {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .barbershop-screens a img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(99,102,241,0.10), 0 2px 8px rgba(236,72,153,0.08);
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .barbershop-screens a img.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .barbershop-screens a img:hover {
+      transform: scale(1.04) translateY(-6px);
+      box-shadow: 0 20px 40px -10px rgb(99 102 241 / 0.12), 0 8px 24px -8px rgb(236 72 153 / 0.10);
+    }
+    .barbershop-cta {
+      margin-top: 50px;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .barbershop-card { padding: 1.5rem 0.7rem; }
+      .barbershop-screens { gap: 16px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -32,71 +94,91 @@
   </noscript>
 
   <!-- HEADER -->
-  <header class="portfolio-header">
+  <header class="portfolio-header" style="background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%); border-radius: 0 0 20px 20px; box-shadow: 0 4px 16px 0 rgb(99 102 241 / 0.08);">
     <div class="texte-avec-ligne-verticale" style="margin-left:16px; margin-top:22px; height:45px;">
-      <p class="portfolio-header-title">Urbain Balogou</p>
+      <p class="portfolio-header-title" style="color: #fff;"><i class="fa fa-scissors"></i> Urbain Balogou</p>
     </div>
-    <a class="contact-button contact-button-portfolio"
-      href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou19.com">ME CONTACTER</a>
+    <a class="contact-button contact-button-portfolio btn" style="margin-right: 24px;" href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou19.com"><i class="fa fa-envelope"></i> ME CONTACTER</a>
   </header>
 
   <!-- SECTION TITRE -->
-  <div class="section section-grise1" style="padding-top: 100px;">
-    <a class="portfolio-back" href="index.html" style="color: var(--color1); text-decoration: none; margin-bottom: 20px; display: inline-block;">← Retour au portfolio</a>
+  <section class="section section-grise1" style="padding-top: 100px;">
+    <a class="portfolio-back btn btn-secondary" href="index.html"><i class="fa fa-arrow-left"></i> Retour au portfolio</a>
     <div class="separateur"></div>
-    <h1 class="portfolio">Portfolio</h1>
-    <h2 class="portfolio">Application CHARM</h2>
-    <p style="text-align: center; color: var(--gray); font-size: 1.2rem;">Plateforme de réservation pour salons de beauté</p>
-  </div>
-
-  <!-- SECTION CONTENU -->
-  <div class="section">
-    <div class="texte-avec-ligne-verticale" style="max-width: 800px; margin: 0 auto;">
-      <p>J'ai réalisé ce projet mobile & web pour un client travaillant dans le domaine de la coiffure et des soins esthétiques.</p>
-
-      <div style="margin-top: 30px;">
-        <h3 style="color: var(--color1); margin-bottom: 15px;">Fonctionnalités clés :</h3>
-        <ul style="padding-left: 20px;">
-          <li style="margin-bottom: 10px;">Découverte des meilleurs salons de beauté, esthétique et bien-être</li>
-          <li style="margin-bottom: 10px;">Réservation de services (coiffure, spa, massage, manucure, pédicure, maquillage)</li>
-          <li style="margin-bottom: 10px;">Marketplace pour produits cosmétiques et esthétiques</li>
-          <li style="margin-bottom: 10px;">Système de notation et d'avis</li>
-          <li style="margin-bottom: 10px;">Gestion de profil utilisateur et professionnel</li>
-        </ul>
-
-        <div style="margin-top: 30px;">
-          <h3 style="color: var(--color1); margin-bottom: 15px;">Technologies utilisées :</h3>
-          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
-            <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Dart</span>
-            <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Flutter</span>
-            <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Laravel</span>
-            <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Firebase</span>
-          </div>
-        </div>
+    <h1 class="section-title reveal">Portfolio</h1>
+    <h2 class="section-title reveal">Application CHARM</h2>
+    <div class="section-subtitle reveal">Plateforme de réservation pour salons de beauté</div>
+    <div class="barbershop-card reveal">
+      <p style="line-height: 1.6; color: var(--dark);">
+        J'ai réalisé ce projet mobile & web pour un client travaillant dans le domaine de la coiffure et des soins esthétiques.
+      </p>
+      <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fa fa-star"></i> Fonctionnalités clés :</h3>
+      <ul style="padding-left: 20px; margin-bottom: 30px;">
+        <li style="margin-bottom: 10px;">Découverte des meilleurs salons de beauté, esthétique et bien-être</li>
+        <li style="margin-bottom: 10px;">Réservation de services (coiffure, spa, massage, manucure, pédicure, maquillage)</li>
+        <li style="margin-bottom: 10px;">Marketplace pour produits cosmétiques et esthétiques</li>
+        <li style="margin-bottom: 10px;">Système de notation et d'avis</li>
+        <li style="margin-bottom: 10px;">Gestion de profil utilisateur et professionnel</li>
+      </ul>
+      <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fa fa-code"></i> Technologies utilisées :</h3>
+      <div class="barbershop-tech-list" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; margin-bottom: 30px;">
+        <span>Dart</span>
+        <span>Flutter</span>
+        <span>Laravel</span>
+        <span>Firebase</span>
       </div>
-
-      <div style="text-align: center; margin-top: 50px;">
-        <h3 style="color: var(--color1); margin-bottom: 30px;">Captures d'écran :</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 20px;">
-          <a target="_blank" href="https://play.google.com/store/apps/details?id=com.bhc.barbershop.barbershpo_flutter">
-            <img src="shot3.png" alt="Interface principale de CHARM" style="width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
-          </a>
-          <a target="_blank" href="https://play.google.com/store/apps/details?id=com.bhc.barbershop.barbershpo_flutter">
-            <img src="shot6reser.png" alt="Processus de réservation CHARM" style="width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
-          </a>
-        </div>
+      <h3 style="color: var(--primary); margin-bottom: 30px;"><i class="fa fa-image"></i> Captures d'écran :</h3>
+      <div class="barbershop-screens">
+        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.bhc.barbershop.barbershpo_flutter">
+          <img src="shot3.png" alt="Interface principale de CHARM">
+        </a>
+        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.bhc.barbershop.barbershpo_flutter">
+          <img src="shot6reser.png" alt="Processus de réservation CHARM">
+        </a>
       </div>
-
-      <div style="text-align: center; margin-top: 50px;">
-        <a class="contact-button" target="_blank" href="https://play.google.com/store/apps/details?id=com.bhc.barbershop.barbershpo_flutter" style="display: inline-block; padding: 12px 30px; background-color: var(--color1); color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: all 0.3s ease;">
-          Voir l'application sur Google Play
+      <div class="barbershop-cta">
+        <a class="btn" target="_blank" href="https://play.google.com/store/apps/details?id=com.bhc.barbershop.barbershpo_flutter">
+          <i class="fa fa-google-play"></i> Voir l'application sur Google Play
         </a>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- IFRAME CONTACT -->
-  <iframe src="contact-frame.html" scrolling="no" style="width: 100%; border: none; height: 400px; margin-top: 40px;"></iframe>
+  <section class="contact-section">
+    <iframe class="contact-frame" src="contact-frame.html" scrolling="no" title="Formulaire de contact"></iframe>
+  </section>
 
+  <script>
+    // Scroll reveal animation (Intersection Observer)
+    function revealOnScroll() {
+      document.querySelectorAll('.reveal').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 60) {
+          el.classList.add('visible');
+        }
+      });
+      // Screenshots fade-in
+      document.querySelectorAll('.barbershop-screens img').forEach(img => {
+        const rect = img.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 60) {
+          img.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('DOMContentLoaded', revealOnScroll);
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>

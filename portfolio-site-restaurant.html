@@ -4,111 +4,474 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site web de restaurant - Urbain Balogou</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:400,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --white: #fff;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-accent: linear-gradient(120deg, var(--primary), var(--accent), var(--secondary));
+            --shadow: 0 4px 16px 0 rgb(99 102 241 / 0.08), 0 1.5px 8px 0 rgb(236 72 153 / 0.08);
+            --shadow-lg: 0 20px 40px -10px rgb(99 102 241 / 0.12), 0 8px 24px -8px rgb(236 72 153 / 0.10);
+            --glass-bg: rgba(255,255,255,0.18);
+            --glass-border: rgba(255,255,255,0.35);
+            --radius: 20px;
+            --transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            --navbar-blur: blur(16px);
+            --navbar-bg: rgba(255,255,255,0.85);
+            --navbar-bg-scrolled: rgba(255,255,255,0.65);
+        }
 
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-W7DWHD3J');
-    </script>
-    <!-- End Google Tag Manager -->
+        html {
+            scroll-behavior: smooth;
+        }
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGYQ8V3DTJ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-DGYQ8V3DTJ');
-    </script>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--dark);
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--navbar-bg);
+            backdrop-filter: var(--navbar-blur);
+            box-shadow: var(--shadow);
+            transition: background 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 2rem;
+        }
+        .navbar.scrolled {
+            background: var(--navbar-bg-scrolled);
+            box-shadow: var(--shadow-lg);
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        .navbar .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .navbar .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .navbar .nav-links a:hover {
+            color: var(--primary);
+        }
+        .navbar .nav-links a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s;
+            position: absolute;
+            left: 0; bottom: -4px;
+        }
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+        .navbar .nav-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.7rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Hamburger menu for mobile */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: var(--navbar-bg);
+                box-shadow: var(--shadow);
+                padding: 1rem 0;
+                border-radius: 0 0 var(--radius) var(--radius);
+            }
+            .navbar .nav-links.open {
+                display: flex;
+            }
+            .navbar .nav-btn {
+                display: block;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-accent);
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 0 3rem 0;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width=\'100%\' height=\'100%\'><defs><radialGradient id=\'g\' cx=\'50%\' cy=\'50%\' r=\'80%\'><stop offset=\'0%25\' stop-color=\'%23fff\' stop-opacity=\'0.08\'/><stop offset=\'100%25\' stop-color=\'%236366f1\' stop-opacity=\'0\'/></radialGradient></defs><rect width=\'100%\' height=\'100%\' fill=\'url(%23g)\'/></svg>');
+            opacity: 0.5;
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+        }
+        .hero-title {
+            font-size: 2.7rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            text-shadow: 0 2px 16px rgba(99,102,241,0.12);
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2.2rem;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Card Section */
+        .section {
+            padding: 6rem 0;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-grise1 {
+            background: var(--light-gray);
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.15rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+            border: 1.5px solid var(--glass-border);
+            padding: 2.5rem 2rem;
+            margin: 0 auto;
+            max-width: 700px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+        }
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 2.5rem;
+        }
+        .tech-list span {
+            background: #f0f0f0;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.98rem;
+            color: #555;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 1px 4px 0 rgb(99 102 241 / 0.07);
+        }
+        .card .screenshot {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(99,102,241,0.10), 0 2px 8px rgba(236,72,153,0.08);
+            margin: 2.5rem auto 0 auto;
+            display: block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        .card .screenshot.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card .cta {
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+
+        /* Buttons */
+        .btn, .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6em;
+            padding: 1rem 2.2rem;
+            font-size: 1.08rem;
+            font-weight: 600;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            background: var(--gradient);
+            color: var(--white);
+            box-shadow: 0 2px 8px 0 rgb(99 102 241 / 0.10);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover, .contact-button:hover {
+            background: linear-gradient(120deg, var(--secondary), var(--primary), var(--accent));
+            color: var(--white);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: var(--shadow-lg);
+        }
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .portfolio-back {
+            margin-bottom: 2rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 0 2rem 0;
+            background: var(--light-gray);
+        }
+        .contact-frame {
+            width: 100%;
+            border: none;
+            height: 400px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            background: var(--white);
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .section {
+                padding: 2.5rem 0.5rem;
+            }
+            .card {
+                padding: 1.5rem 0.7rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.7rem 1rem;
+            }
+            .hero {
+                padding: 3rem 0 1.5rem 0;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7DWHD3J" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <!-- HEADER -->
-    <header class="portfolio-header">
-        <div class="texte-avec-ligne-verticale" style="margin-left:16px; margin-top:22px; height:45px;">
-            <p class="portfolio-header-title">Urbain Balogou</p>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="logo"><i class="fa-solid fa-utensils"></i> Urbain Balogou</div>
+        <button class="nav-btn" id="navToggle" aria-label="Menu"><i class="fa fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html"><i class="fa fa-home"></i> Accueil</a>
+            <a href="portfolio-site-restaurant.html" class="active"><i class="fa fa-utensils"></i> Projet Restaurant</a>
+            <a href="portfolio-application-plant.html"><i class="fa fa-leaf"></i> Projet Plantes</a>
+            <a href="portfolio-application-location.html"><i class="fa fa-car"></i> Projet Location</a>
+            <a href="portfolio-application-barbershop.html"><i class="fa fa-scissors"></i> Projet CHARM</a>
+            <a href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou19.com" class="btn btn-secondary"><i class="fa fa-envelope"></i> Me contacter</a>
         </div>
-        <a class="contact-button contact-button-portfolio"
-            href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou19.com">ME CONTACTER</a>
-    </header>
+    </nav>
 
-    <!-- SECTION TITRE -->
-    <div class="section section-grise1" style="padding-top: 100px;">
-        <a class="portfolio-back" href="index.html" style="color: var(--color1); text-decoration: none; margin-bottom: 20px; display: inline-block;">← Retour au portfolio</a>
-        <div class="separateur"></div>
-        <h1 class="portfolio">Portfolio</h1>
-        <h2 class="portfolio">Site web pour un restaurant</h2>
-        <p style="text-align: center; color: var(--gray); font-size: 1.2rem;">Solution web pour la gestion de menus et la visibilité en ligne</p>
-    </div>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-subtitle reveal"><i class="fa-solid fa-utensils"></i> Projet client</div>
+            <h1 class="hero-title reveal">Site web pour un restaurant</h1>
+            <div class="hero-buttons reveal">
+                <a href="#portfolio-details" class="btn"><i class="fa fa-arrow-down"></i> Découvrir le projet</a>
+            </div>
+        </div>
+    </section>
 
-    <!-- SECTION CONTENU -->
-    <div class="section">
-        <div class="texte-avec-ligne-verticale" style="max-width: 800px; margin: 0 auto;">
+    <!-- PORTFOLIO DETAILS -->
+    <section class="section section-grise1" id="portfolio-details">
+        <a class="portfolio-back btn btn-secondary" href="index.html"><i class="fa fa-arrow-left"></i> Retour au portfolio</a>
+        <h1 class="section-title reveal">Portfolio</h1>
+        <h2 class="section-title reveal">Site web pour un restaurant</h2>
+        <div class="section-subtitle reveal">Solution web pour la gestion de menus et la visibilité en ligne</div>
+        <div class="card reveal">
             <p style="line-height: 1.6; color: var(--dark);">
-                J’ai réalisé ce projet web pour un client travaillant dans le domaine de la restauration.
-                <br><br>
-                L’objectif ? Permettre à ce restaurant de gagner en visibilité et de proposer son menu de pizzas aux utilisateurs.
-                <br><br>
-                Mon client, étant novice dans les nouvelles technologies, a la possibilité de modifier facilement son menu en ligne grâce à une interface d’administration sur-mesure que j’ai réalisée.
-                <br><br>
+                J’ai réalisé ce projet web pour un client travaillant dans le domaine de la restauration.<br><br>
+                L’objectif ? Permettre à ce restaurant de gagner en visibilité et de proposer son menu de pizzas aux utilisateurs.<br><br>
+                Mon client, étant novice dans les nouvelles technologies, a la possibilité de modifier facilement son menu en ligne grâce à une interface d’administration sur-mesure que j’ai réalisée.<br><br>
                 Ce projet simple mais fonctionnel a donné entière satisfaction à mon client.
             </p>
-
-            <div style="margin-top: 30px;">
-                <h3 style="color: var(--color1); margin-bottom: 15px;">Technologies utilisées :</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
-                    <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">HTML</span>
-                    <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">CSS</span>
-                    <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Django</span>
-                    <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Python</span>
-                    <span style="background-color: #f0f0f0; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #555;">Heroku</span>
-                </div>
+            <h3><i class="fa fa-code"></i> Technologies utilisées :</h3>
+            <div class="tech-list">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>Django</span>
+                <span>Python</span>
+                <span>Heroku</span>
             </div>
-
-            <div style="text-align: center; margin-top: 50px;">
-                <h3 style="color: var(--color1); margin-bottom: 30px;">Capture d'écran :</h3>
-                <img src="project1.jpg" alt="Interface du site web du restaurant" style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
-            </div>
-
-            <div style="text-align: center; margin-top: 50px;">
-                <a class="contact-button" href="#" style="display: inline-block; padding: 12px 30px; background-color: var(--color1); color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: all 0.3s ease;">
-                    Consulter le projet
-                </a>
+            <h3 style="margin-top:2.5rem;"><i class="fa fa-image"></i> Capture d'écran :</h3>
+            <img src="project1.jpg" alt="Interface du site web du restaurant" class="screenshot" id="screenshot">
+            <div class="cta">
+                <a class="btn" href="#"><i class="fa fa-eye"></i> Consulter le projet</a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- IFRAME CONTACT -->
-    <iframe src="contact-frame.html" scrolling="no" style="width: 100%; border: none; height: 400px; margin-top: 40px;"></iframe>
+    <!-- CONTACT -->
+    <section class="contact-section">
+        <iframe class="contact-frame" src="contact-frame.html" scrolling="no" title="Formulaire de contact"></iframe>
+    </section>
 
-    <!-- Animation simple au scroll -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.texte-avec-ligne-verticale, img');
+        // Navbar sticky transparency
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 30) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, {threshold: 0.1});
+        // Hamburger menu
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
 
-            elements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'all 0.6s ease-out';
-                observer.observe(el);
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            document.querySelectorAll('.reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if(rect.top < window.innerHeight - 60) {
+                    el.classList.add('visible');
+                }
+            });
+            // Screenshot fade-in
+            const shot = document.getElementById('screenshot');
+            if(shot) {
+                const rect = shot.getBoundingClientRect();
+                if(rect.top < window.innerHeight - 60) {
+                    shot.classList.add('revealed');
+                }
+            }
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('DOMContentLoaded', revealOnScroll);
+
+        // Loading state for CTA
+        document.querySelectorAll('.cta .btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if(this.getAttribute('href') === "#") {
+                    e.preventDefault();
+                    this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Chargement...';
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fa fa-eye"></i> Consulter le projet';
+                    }, 1200);
+                }
             });
         });
     </script>
