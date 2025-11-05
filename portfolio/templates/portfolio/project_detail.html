@@ -1,0 +1,350 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} - Urbain Balogou{% endblock %}
+{% block meta_description %}{{ project.short_description }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Project Header */
+    .project-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 8rem 0 4rem;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .project-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        {% if project.header_image %}
+        background: url("{{ project.header_image.url }}") center/cover;
+        opacity: 0.1;
+        {% endif %}
+    }
+
+    .project-header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .back-button {
+        position: absolute;
+        top: 100px;
+        left: 2rem;
+        color: white;
+        font-size: 2rem;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
+
+    .back-button:hover {
+        transform: translateX(-10px);
+    }
+
+    .project-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .project-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.9;
+    }
+
+    /* Project Content */
+    .project-content {
+        padding: 4rem 0;
+    }
+
+    .content-section {
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--dark);
+    }
+
+    /* Features Grid */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .feature-card i {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Description Card */
+    .description-card {
+        background: white;
+        padding: 3rem;
+        border-radius: 1rem;
+        box-shadow: var(--shadow);
+        margin-bottom: 3rem;
+    }
+
+    .description-card p {
+        line-height: 1.8;
+        color: var(--gray);
+        margin-bottom: 1rem;
+    }
+
+    /* Technologies */
+    .tech-stack {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+    }
+
+    .tech-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 1.5rem;
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: var(--shadow);
+        font-weight: 600;
+    }
+
+    .tech-item i {
+        font-size: 1.5rem;
+        color: var(--primary);
+    }
+
+    /* Screenshots Gallery */
+    .screenshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .screenshot-item {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        transition: transform 0.3s ease;
+    }
+
+    .screenshot-item:hover {
+        transform: scale(1.05);
+    }
+
+    .screenshot-item img {
+        width: 100%;
+        display: block;
+    }
+
+    .screenshot-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 1rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .screenshot-item:hover .screenshot-caption {
+        transform: translateY(0);
+    }
+
+    /* Video Demo */
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 1rem;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Contact CTA */
+    .contact-cta {
+        background: var(--gradient);
+        padding: 3rem;
+        border-radius: 1rem;
+        text-align: center;
+        color: white;
+        margin-top: 4rem;
+    }
+
+    .contact-cta h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-cta p {
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .btn-white {
+        background: white;
+        color: var(--primary);
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-white:hover {
+        transform: translateY(-3px);
+    }
+
+    @media (max-width: 768px) {
+        .project-title {
+            font-size: 2rem;
+        }
+
+        .back-button {
+            top: 80px;
+            left: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Project Header -->
+<div class="project-header">
+    <a href="{% url 'home' %}#projets" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <div class="project-header-content">
+        <h1 class="project-title">{{ project.title }}</h1>
+        <p class="project-subtitle">{{ project.subtitle }}</p>
+    </div>
+</div>
+
+<!-- Project Content -->
+<div class="project-content">
+    <div class="container">
+        <!-- Features -->
+        {% if project.features %}
+        <div class="content-section">
+            <h2 class="section-title">Fonctionnalités principales</h2>
+            <div class="features-grid">
+                {% for feature in project.features %}
+                <div class="feature-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>{{ feature }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Description -->
+        <div class="content-section">
+            <h2 class="section-title">À propos du projet</h2>
+            <div class="description-card">
+                <p>{{ project.full_description|linebreaks }}</p>
+            </div>
+        </div>
+
+        <!-- Technologies -->
+        {% if project.technologies.exists %}
+        <div class="content-section">
+            <h2 class="section-title">Technologies utilisées</h2>
+            <div class="tech-stack">
+                {% for tech in project.technologies.all %}
+                <div class="tech-item">
+                    {% if tech.icon %}
+                    <i class="{{ tech.icon }}"></i>
+                    {% endif %}
+                    <span>{{ tech.name }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Video Demo -->
+        {% if project.video_demo %}
+        <div class="content-section">
+            <h2 class="section-title">Démonstration vidéo</h2>
+            <div class="video-container">
+                <video controls>
+                    <source src="{{ project.video_demo.url }}" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Screenshots -->
+        {% if project.screenshots.exists %}
+        <div class="content-section">
+            <h2 class="section-title">Captures d'écran</h2>
+            <div class="screenshots-grid">
+                {% for screenshot in project.screenshots.all %}
+                <div class="screenshot-item">
+                    <img src="{{ screenshot.image.url }}" alt="{{ screenshot.caption }}">
+                    {% if screenshot.caption %}
+                    <div class="screenshot-caption">
+                        {{ screenshot.caption }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Contact CTA -->
+        <div class="contact-cta">
+            <h2>Intéressé par ce projet ?</h2>
+            <p>Discutons de votre prochain projet ensemble</p>
+            <a href="{% url 'home' %}#contact" class="btn-white">Me Contacter</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% endblock %}

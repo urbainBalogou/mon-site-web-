@@ -1,0 +1,415 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        position: relative;
+        overflow: hidden;
+        padding-top: 70px;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("{% static 'images/cover.jpg' %}") center/cover;
+        opacity: 0.1;
+    }
+
+    .hero-content {
+        text-align: center;
+        color: white;
+        z-index: 1;
+        animation: fadeInUp 1s ease;
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    /* Sections */
+    .section {
+        padding: 5rem 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* About */
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .about-image img {
+        width: 100%;
+        border-radius: 1rem;
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* Skills */
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 2rem;
+    }
+
+    .skill-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .skill-card i {
+        font-size: 3rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    /* Portfolio */
+    .portfolio-filters {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 0.75rem 1.5rem;
+        background: white;
+        border: 2px solid var(--light-gray);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+        background: var(--gradient);
+        color: white;
+        border-color: transparent;
+    }
+
+    .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+
+    .portfolio-card {
+        background: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .portfolio-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .portfolio-card-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .portfolio-card-content {
+        padding: 1.5rem;
+    }
+
+    .portfolio-card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .portfolio-card-subtitle {
+        color: var(--gray);
+        margin-bottom: 1rem;
+    }
+
+    .portfolio-card-tech {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .tech-badge {
+        padding: 0.25rem 0.75rem;
+        background: var(--light-gray);
+        border-radius: 1rem;
+        font-size: 0.875rem;
+    }
+
+    /* Contact */
+    .contact-content {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: var(--shadow);
+    }
+
+    .contact-item i {
+        font-size: 1.5rem;
+        color: var(--primary);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+    }
+
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        .hero-content h1 {
+            font-size: 2rem;
+        }
+
+        .about-content {
+            grid-template-columns: 1fr;
+        }
+
+        .portfolio-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="accueil" class="hero">
+    <div class="hero-content">
+        <h1>Urbain Balogou</h1>
+        <p>Développeur Full Stack & Expert IT</p>
+        <a href="#contact" class="btn btn-primary">Me Contacter</a>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">À propos</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="{% static 'images/profile.png' %}" alt="Urbain Balogou">
+            </div>
+            <div class="about-text">
+                <h3>Développeur passionné par l'innovation technologique</h3>
+                <p>
+                    Fort de plusieurs années d'expérience dans le développement web et mobile,
+                    je crée des solutions digitales performantes et innovantes. Ma passion pour
+                    les nouvelles technologies me pousse constamment à apprendre et à relever
+                    de nouveaux défis.
+                </p>
+                <p>
+                    Spécialisé dans le développement full-stack, je maîtrise aussi bien le
+                    frontend que le backend, avec une expertise particulière en Django, React,
+                    et Flutter.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="competences" class="section reveal" style="background: var(--light-gray);">
+    <div class="container">
+        <h2 class="section-title">Compétences</h2>
+        <div class="skills-grid">
+            {% for skill in skills %}
+            <div class="skill-card">
+                <i class="{{ skill.icon }}"></i>
+                <h3>{{ skill.name }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="projets" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Mes Projets</h2>
+
+        <div class="portfolio-filters">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="application">Applications</button>
+            <button class="filter-btn" data-filter="web">Sites Web</button>
+            <button class="filter-btn" data-filter="cloud">Cloud</button>
+            <button class="filter-btn" data-filter="game">Jeux</button>
+        </div>
+
+        <div class="portfolio-grid">
+            {% for project in projects %}
+            <a href="{% url 'project_detail' project.slug %}" class="portfolio-card" data-type="{{ project.project_type }}">
+                <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="portfolio-card-image">
+                <div class="portfolio-card-content">
+                    <h3 class="portfolio-card-title">{{ project.title }}</h3>
+                    <p class="portfolio-card-subtitle">{{ project.subtitle }}</p>
+                    <p>{{ project.short_description|truncatewords:20 }}</p>
+                    <div class="portfolio-card-tech">
+                        {% for tech in project.technologies.all|slice:":4" %}
+                        <span class="tech-badge">{{ tech.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section reveal" style="background: var(--light-gray);">
+    <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email</strong>
+                        <p>{{ contact_info.email }}</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Téléphone</strong>
+                        <p>{{ contact_info.phone }}</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>
+                        <strong>WhatsApp</strong>
+                        <p>{{ contact_info.whatsapp }}</p>
+                    </div>
+                </div>
+            </div>
+            <a href="mailto:{{ contact_info.email }}" class="btn btn-primary" style="width: 100%; text-align: center;">
+                Envoyer un message
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Portfolio filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+
+            portfolioCards.forEach(card => {
+                if (filter === 'all' || card.dataset.type === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Reveal animations on scroll
+    function reveal() {
+        const reveals = document.querySelectorAll('.reveal');
+
+        reveals.forEach(element => {
+            const windowHeight = window.innerHeight;
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+
+            if (elementTop < windowHeight - elementVisible) {
+                element.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', reveal);
+    reveal(); // Initial call
+</script>
+{% endblock %}
