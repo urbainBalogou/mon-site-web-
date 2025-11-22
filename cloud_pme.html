@@ -47,6 +47,33 @@
             --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
             --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            
+            /* Tailles fluides */
+            --spacing-xs: clamp(0.5rem, 2vw, 0.75rem);
+            --spacing-sm: clamp(0.75rem, 3vw, 1rem);
+            --spacing-md: clamp(1rem, 4vw, 1.5rem);
+            --spacing-lg: clamp(1.5rem, 5vw, 2rem);
+            --spacing-xl: clamp(2rem, 6vw, 3rem);
+            --spacing-2xl: clamp(3rem, 8vw, 4rem);
+            
+            /* Polices fluides */
+            --font-xs: clamp(0.75rem, 2vw, 0.875rem);
+            --font-sm: clamp(0.875rem, 2.5vw, 1rem);
+            --font-base: clamp(1rem, 3vw, 1.125rem);
+            --font-lg: clamp(1.125rem, 3.5vw, 1.3rem);
+            --font-xl: clamp(1.25rem, 4vw, 1.5rem);
+            --font-2xl: clamp(1.5rem, 5vw, 2rem);
+            --font-3xl: clamp(2rem, 6vw, 3rem);
+            
+            /* Border radius adaptatif */
+            --radius-sm: clamp(8px, 2vw, 12px);
+            --radius-md: clamp(12px, 3vw, 20px);
+            --radius-lg: clamp(20px, 4vw, 30px);
+            --radius-full: 50px;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -56,6 +83,8 @@
             overflow-x: hidden;
             background: linear-gradient(135deg, #fafafa 0%, var(--color2) 50%, #f0f0f0 100%);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Animations */
@@ -101,16 +130,20 @@
             }
         }
 
-        /* Header */
+        /* Header - Amélioré pour mobile */
         .portfolio-header {
             background: var(--gradient);
-            padding: 1.5rem 2rem;
+            padding: var(--spacing-md) var(--spacing-lg);
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: var(--shadow-lg);
-            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             overflow: hidden;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
         }
 
         .portfolio-header::before {
@@ -121,41 +154,49 @@
             right: 0;
             bottom: 0;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cars" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 5 10 L 15 10 M 10 5 L 10 15" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23cars)"/></svg>');
+            opacity: 0.5;
         }
 
         .portfolio-header-title {
             color: white;
-            font-size: 1.5rem;
+            font-size: var(--font-xl);
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: var(--spacing-sm);
             position: relative;
             z-index: 2;
             border-left: 4px solid rgba(255, 255, 255, 0.3);
-            padding-left: 1rem;
+            padding-left: var(--spacing-md);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .portfolio-header-title i {
             animation: drive 3s ease-in-out infinite;
             color: rgba(255, 255, 255, 0.9);
+            flex-shrink: 0;
         }
 
         .contact-button {
             background: rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: var(--spacing-sm) var(--spacing-lg);
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
+            border-radius: var(--radius-full);
             text-decoration: none;
             font-weight: 600;
+            font-size: var(--font-sm);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-xs);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             position: relative;
             z-index: 2;
+            white-space: nowrap;
+            min-height: 44px; /* Touch-friendly sur mobile */
         }
 
         .contact-button:hover {
@@ -164,9 +205,13 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
+        .contact-button:active {
+            transform: translateY(0);
+        }
+
         /* Hero Section */
         .hero-section {
-            padding: 6rem 0 4rem;
+            padding: var(--spacing-2xl) 0 var(--spacing-xl);
             text-align: center;
             position: relative;
         }
@@ -174,22 +219,25 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 var(--spacing-lg);
+            width: 100%;
         }
 
         .back-button {
             background: rgba(216, 149, 132, 0.1);
             color: var(--color1);
-            padding: 0.75rem 1.5rem;
+            padding: var(--spacing-sm) var(--spacing-lg);
             border: 2px solid var(--color1);
-            border-radius: 50px;
+            border-radius: var(--radius-full);
             text-decoration: none;
             font-weight: 600;
+            font-size: var(--font-sm);
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-xs);
             transition: all 0.3s ease;
-            margin-bottom: 3rem;
+            margin-bottom: var(--spacing-xl);
+            min-height: 44px;
         }
 
         .back-button:hover {
@@ -198,48 +246,55 @@
             transform: translateY(-2px);
         }
 
+        .back-button:active {
+            transform: translateY(0);
+        }
+
         .section-subtitle {
             color: var(--color1);
-            font-size: 1rem;
+            font-size: var(--font-sm);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 1rem;
+            margin-bottom: var(--spacing-sm);
         }
 
         .section-title {
-            font-size: 3rem;
+            font-size: var(--font-3xl);
             font-weight: 700;
             color: var(--dark);
-            margin-bottom: 1rem;
+            margin-bottom: var(--spacing-md);
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            word-wrap: break-word;
         }
 
         .section-description {
-            font-size: 1.3rem;
+            font-size: var(--font-lg);
             color: var(--gray);
-            margin-bottom: 3rem;
+            margin-bottom: var(--spacing-xl);
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.7;
         }
 
-        /* Car Features Grid */
+        /* Car Features Grid - Responsive amélioré */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
         }
 
         .feature-card {
             background: rgba(216, 149, 132, 0.05);
             border: 1px solid rgba(216, 149, 132, 0.15);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
             text-align: center;
             transition: all 0.3s ease;
         }
@@ -251,29 +306,35 @@
         }
 
         .feature-icon {
-            width: 60px;
-            height: 60px;
+            width: clamp(50px, 10vw, 60px);
+            height: clamp(50px, 10vw, 60px);
             background: var(--gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
+            margin: 0 auto var(--spacing-md);
             color: white;
-            font-size: 1.5rem;
+            font-size: var(--font-xl);
         }
 
         .feature-title {
-            font-size: 1.2rem;
+            font-size: var(--font-lg);
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--spacing-xs);
             color: var(--dark);
+            line-height: 1.3;
         }
 
         .feature-description {
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: var(--font-sm);
             line-height: 1.6;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .feature-description:last-child {
+            margin-bottom: 0;
         }
 
         /* Main Content Card */
@@ -281,14 +342,15 @@
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(216, 149, 132, 0.2);
-            border-radius: 30px;
-            padding: 3rem;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
             max-width: 1000px;
-            margin: 0 auto 4rem;
+            margin: 0 auto var(--spacing-2xl);
             box-shadow: var(--shadow-xl);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
         .car-card::before {
@@ -302,31 +364,32 @@
         }
 
         .car-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 40px 80px -20px rgba(216, 149, 132, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px -20px rgba(216, 149, 132, 0.2);
         }
 
         .car-description {
-            font-size: 1.1rem;
+            font-size: var(--font-base);
             line-height: 1.8;
             color: var(--dark);
-            margin-bottom: 2.5rem;
+            margin-bottom: var(--spacing-xl);
             text-align: justify;
         }
 
-        /* Functions List */
+        /* Functions Section */
         .functions-section {
-            margin: 3rem 0;
+            margin: var(--spacing-xl) 0;
         }
 
         .functions-title {
             color: var(--color1);
-            font-size: 1.4rem;
+            font-size: var(--font-xl);
             font-weight: 600;
-            margin-bottom: 1.5rem;
+            margin-bottom: var(--spacing-lg);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
         }
 
         .functions-list {
@@ -336,14 +399,16 @@
 
         .functions-list li {
             background: rgba(216, 149, 132, 0.05);
-            margin-bottom: 1rem;
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-sm);
             border-left: 4px solid var(--color1);
             transition: all 0.3s ease;
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
+            gap: var(--spacing-md);
+            font-size: var(--font-sm);
+            line-height: 1.6;
         }
 
         .functions-list li:hover {
@@ -353,41 +418,45 @@
 
         .functions-list li::before {
             content: '🚗';
-            font-size: 1.2rem;
+            font-size: var(--font-lg);
             flex-shrink: 0;
         }
 
         /* Tech Section */
         .tech-section {
-            margin: 3rem 0;
+            margin: var(--spacing-xl) 0;
         }
 
         .tech-title {
             color: var(--color1);
-            font-size: 1.4rem;
+            font-size: var(--font-xl);
             font-weight: 600;
-            margin-bottom: 1.5rem;
+            margin-bottom: var(--spacing-lg);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
         }
 
         .tech-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            justify-content: center;
         }
 
         .tech-tag {
             background: rgba(216, 149, 132, 0.1);
             color: var(--color1-dark);
-            padding: 0.75rem 1.5rem;
+            padding: var(--spacing-sm) var(--spacing-lg);
             border-radius: 25px;
             font-family: 'JetBrains Mono', monospace;
             font-weight: 500;
+            font-size: var(--font-sm);
             border: 1px solid rgba(216, 149, 132, 0.2);
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .tech-tag:hover {
@@ -397,28 +466,29 @@
             box-shadow: var(--shadow);
         }
 
-        /* Screenshot Section */
+        /* Screenshot Section - Responsive amélioré */
         .screenshot-section {
             text-align: center;
-            margin: 4rem 0;
+            margin: var(--spacing-2xl) 0;
         }
 
         .screenshot-title {
             color: var(--color1);
-            font-size: 1.4rem;
+            font-size: var(--font-xl);
             font-weight: 600;
-            margin-bottom: 2rem;
+            margin-bottom: var(--spacing-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
         }
 
         .screenshot-container {
             position: relative;
             max-width: 700px;
-            margin: 0 auto;
-            border-radius: 20px;
+            margin: 0 auto var(--spacing-lg);
+            border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--shadow-lg);
             transition: all 0.3s ease;
@@ -436,6 +506,38 @@
             transition: all 0.3s ease;
         }
 
+        .screenshot-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: var(--spacing-lg);
+        }
+
+        .screenshot-placeholder-content {
+            text-align: center;
+        }
+
+        .screenshot-placeholder i {
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .screenshot-placeholder-title {
+            font-size: var(--font-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .screenshot-placeholder-subtitle {
+            font-size: var(--font-sm);
+            opacity: 0.8;
+        }
+
         .screenshot-overlay {
             position: absolute;
             top: 0;
@@ -448,6 +550,7 @@
             justify-content: center;
             opacity: 0;
             transition: opacity 0.3s ease;
+            padding: var(--spacing-lg);
         }
 
         .screenshot-container:hover .screenshot-overlay {
@@ -457,35 +560,39 @@
         .view-button {
             background: rgba(255, 255, 255, 0.9);
             color: var(--color1);
-            padding: 1rem 2rem;
-            border-radius: 50px;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-full);
             text-decoration: none;
             font-weight: 600;
-            display: flex;
+            font-size: var(--font-sm);
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-xs);
             animation: pulse 2s infinite;
+            min-height: 44px;
+            text-align: center;
         }
 
         /* CTA Section */
         .cta-section {
             text-align: center;
-            margin: 3rem 0;
+            margin: var(--spacing-xl) 0;
         }
 
         .cta-button {
             background: var(--gradient);
             color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-full);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 1.1rem;
+            gap: var(--spacing-sm);
+            font-size: var(--font-base);
             transition: all 0.3s ease;
             box-shadow: var(--shadow);
+            min-height: 44px;
         }
 
         .cta-button:hover {
@@ -494,18 +601,23 @@
             background: var(--gradient-dark);
         }
 
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
         /* Contact Section */
         .contact-section {
-            margin-top: 6rem;
+            margin-top: var(--spacing-2xl);
             background: rgba(255, 255, 255, 0.5);
-            border-radius: 30px 30px 0 0;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
             overflow: hidden;
         }
 
         .contact-frame {
             width: 100%;
             border: none;
-            height: 400px;
+            min-height: 400px;
+            height: 60vh;
         }
 
         /* Animations */
@@ -531,60 +643,6 @@
             transform: translateX(0);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .portfolio-header {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .section-description {
-                font-size: 1.1rem;
-            }
-
-            .car-card {
-                padding: 2rem 1.5rem;
-                margin: 0 1rem 3rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .tech-grid {
-                justify-content: center;
-            }
-
-            .hero-section {
-                padding: 4rem 0 3rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .car-card {
-                padding: 1.5rem 1rem;
-            }
-
-            .tech-tag {
-                font-size: 0.9rem;
-                padding: 0.6rem 1.2rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .functions-list li {
-                padding: 0.8rem 1rem;
-            }
-        }
-
         /* Background decoration */
         .bg-decoration {
             position: fixed;
@@ -598,6 +656,273 @@
             background-image: 
                 radial-gradient(circle at 25% 25%, var(--color1) 0%, transparent 50%),
                 radial-gradient(circle at 75% 75%, var(--color1-light) 0%, transparent 50%);
+        }
+
+        /* ============= MEDIA QUERIES AMÉLIORÉES ============= */
+        
+        /* Large Desktop */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1320px;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) and (max-width: 1399px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Tablet landscape */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .portfolio-header {
+                padding: var(--spacing-md);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--spacing-md);
+            }
+            
+            .car-card {
+                padding: var(--spacing-lg);
+            }
+            
+            .tech-grid {
+                justify-content: flex-start;
+            }
+        }
+
+        /* Tablet portrait et mobile */
+        @media (max-width: 767px) {
+            .portfolio-header {
+                padding: var(--spacing-sm) var(--spacing-md);
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .portfolio-header-title {
+                font-size: var(--font-lg);
+                border-left: none;
+                border-top: 3px solid rgba(255, 255, 255, 0.3);
+                padding-left: 0;
+                padding-top: var(--spacing-xs);
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .contact-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .car-card {
+                padding: var(--spacing-lg) var(--spacing-md);
+                border-radius: var(--radius-md);
+            }
+            
+            .car-card:hover {
+                transform: translateY(-5px);
+            }
+            
+            .car-description {
+                text-align: left;
+            }
+            
+            .functions-list li {
+                padding: var(--spacing-md);
+                gap: var(--spacing-sm);
+            }
+            
+            .tech-grid {
+                justify-content: center;
+                gap: var(--spacing-sm);
+            }
+            
+            .tech-tag {
+                font-size: var(--font-xs);
+                padding: var(--spacing-xs) var(--spacing-md);
+            }
+            
+            .hero-section {
+                padding: var(--spacing-xl) 0 var(--spacing-lg);
+            }
+            
+            .back-button {
+                width: 100%;
+                justify-content: center;
+                max-width: 300px;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 400px;
+                justify-content: center;
+            }
+        }
+
+        /* Small mobile */
+        @media (max-width: 480px) {
+            .car-card {
+                padding: var(--spacing-md) var(--spacing-sm);
+                margin-left: var(--spacing-sm);
+                margin-right: var(--spacing-sm);
+            }
+            
+            .functions-list li {
+                padding: var(--spacing-sm);
+                font-size: var(--font-xs);
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .functions-list li::before {
+                margin-bottom: var(--spacing-xs);
+            }
+            
+            .screenshot-overlay {
+                padding: var(--spacing-md);
+            }
+            
+            .view-button {
+                font-size: var(--font-xs);
+                padding: var(--spacing-sm) var(--spacing-md);
+                flex-direction: column;
+            }
+            
+            .feature-card {
+                padding: var(--spacing-md);
+            }
+            
+            .contact-frame {
+                min-height: 500px;
+            }
+        }
+
+        /* Very small mobile */
+        @media (max-width: 360px) {
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+            
+            .portfolio-header-title {
+                font-size: var(--font-base);
+            }
+            
+            .contact-button {
+                font-size: var(--font-xs);
+                padding: var(--spacing-xs) var(--spacing-md);
+            }
+            
+            .tech-tag {
+                font-size: 0.7rem;
+                padding: 0.5rem 0.8rem;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-section {
+                padding: var(--spacing-lg) 0;
+            }
+            
+            .section-title {
+                margin-bottom: var(--spacing-sm);
+            }
+            
+            .section-description {
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .features-grid {
+                margin: var(--spacing-md) 0;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .contact-button,
+            .back-button,
+            .cta-button,
+            .view-button {
+                min-height: 48px;
+                padding: var(--spacing-md) var(--spacing-lg);
+            }
+            
+            .feature-card:hover,
+            .car-card:hover,
+            .screenshot-container:hover {
+                transform: none;
+            }
+            
+            .tech-tag {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .portfolio-header,
+            .contact-section,
+            .bg-decoration {
+                display: none;
+            }
+            
+            .car-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            body {
+                background: white;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Dark mode support (optionnel) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --dark: #f8fafc;
+                --light-gray: #1e293b;
+                --gray: #94a3b8;
+            }
+            
+            body {
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+                color: var(--dark);
+            }
+            
+            .car-card {
+                background: rgba(30, 41, 59, 0.9);
+                border-color: rgba(216, 149, 132, 0.3);
+            }
+            
+            .feature-card {
+                background: rgba(216, 149, 132, 0.1);
+                border-color: rgba(216, 149, 132, 0.2);
+            }
+            
+            .functions-list li {
+                background: rgba(216, 149, 132, 0.1);
+            }
         }
     </style>
 </head>
@@ -614,11 +939,11 @@
     <header class="portfolio-header">
         <h1 class="portfolio-header-title">
             <i class="fas fa-car"></i>
-            Urbain Balogou
+            <span>Urbain Balogou</span>
         </h1>
         <a class="contact-button" href="mailto:urbainbalogou19@gmail.com?subject=Contact%20depuis%20urbainBalogou19.com">
             <i class="fas fa-envelope"></i>
-            ME CONTACTER
+            <span>ME CONTACTER</span>
         </a>
     </header>
 
@@ -627,13 +952,13 @@
         <div class="container">
             <a class="back-button reveal" href="index.html">
                 <i class="fas fa-arrow-left"></i>
-                Retour au portfolio
+                <span>Retour au portfolio</span>
             </a>
             
             <div class="section-subtitle reveal">Portfolio</div>
             <h1 class="section-title reveal">Cloud PME</h1>
             <p class="section-description reveal">
-                Plateforme de gestion interne d’entreprise
+                Plateforme de gestion interne d'entreprise
             </p>
 
             <!-- Features Grid -->
@@ -645,7 +970,7 @@
                     <h3 class="feature-title">Gestion des fichiers par département</h3>
                     <p class="feature-description">Organisation automatique des fichiers selon les départements (RH, IT, Comptabilité, etc.).</p>
                     <p class="feature-description">Téléversement, suppression et partage sécurisé.</p>
-                    <p class="feature-description">Permissions d’accès selon le rôle de l’utilisateur.</p>
+                    <p class="feature-description">Permissions d'accès selon le rôle de l'utilisateur.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -655,7 +980,6 @@
                     <p class="feature-description">Échange de messages entre employés et employeurs.</p>
                     <p class="feature-description">Notifications internes en temps réel (via polling ou WebSocket futur).</p>
                     <p class="feature-description">Messages envoyés par les utilisateurs sont stockés dans la base de données avec historique complète.</p>
-                    
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -666,7 +990,6 @@
                     <p class="feature-description">Gestion des utilisateurs, rôles, départements et permissions</p>
                     <p class="feature-description">Tableaux de bord pour suivre l'activité et les statistiques</p>
                     <p class="feature-description">Gestion des demandes internes (demande de congés, de formation, etc.)</p>
-                    
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -680,16 +1003,14 @@
             <!-- Main Content Card -->
             <div class="car-card reveal">
                 <p class="car-description">
-Cloud PME est une application web interne développée avec Django permettant aux entreprises de gérer efficacement leurs fichiers, demandes et communications internes entre employés et employeurs.                </p>
-
-                <!-- Functions Section -->
-
+                    Cloud PME est une application web interne développée avec Django permettant aux entreprises de gérer efficacement leurs fichiers, demandes et communications internes entre employés et employeurs.
+                </p>
 
                 <!-- Tech Section -->
                 <div class="tech-section slide-in">
                     <h3 class="tech-title">
                         <i class="fas fa-code"></i>
-                        Technologies utilisées
+                        <span>Technologies utilisées</span>
                     </h3>
                     <div class="tech-grid">
                         <span class="tech-tag">Python</span>
@@ -706,22 +1027,41 @@ Cloud PME est une application web interne développée avec Django permettant au
                 <div class="screenshot-section slide-in">
                     <h3 class="screenshot-title">
                         <i class="fas fa-desktop"></i>
-                        Interface de l'application
+                        <span>Interface de l'application</span>
                     </h3>
+                    
                     <div class="screenshot-container">
-                        <img src="cloud1.png" alt="">
-                        <img src="cloud2.png" alt="">
-                        <div style="width: 100%; height: 400px; background: linear-gradient(135deg, var(--color1) 0%, var(--color1-light) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; border-radius: 20px;">
-                            <div style="text-align: center;">
-                                <i class="fas fa-car" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                                <div style="font-size: 1.5rem; font-weight: 600;">Interface d'administration</div>
-                                <div style="font-size: 1rem; opacity: 0.8; margin-top: 0.5rem;">Système gestion de document et de demande en entreprise</div>
+                        <img src="cloud1.png" alt="Capture d'écran Cloud PME - Interface principale" class="screenshot-image" loading="lazy">
+                        <div class="screenshot-overlay">
+                            <a href="https://urbano.pythonanywhere.com/" target="_blank" rel="noopener noreferrer" class="view-button">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Voir le projet</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-container">
+                        <img src="cloud2.png" alt="Capture d'écran Cloud PME - Interface secondaire" class="screenshot-image" loading="lazy">
+                        <div class="screenshot-overlay">
+                            <a href="https://urbano.pythonanywhere.com/" target="_blank" rel="noopener noreferrer" class="view-button">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Voir le projet</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <div class="screenshot-placeholder-content">
+                                <i class="fas fa-car"></i>
+                                <div class="screenshot-placeholder-title">Interface d'administration</div>
+                                <div class="screenshot-placeholder-subtitle">Système gestion de document et de demande en entreprise</div>
                             </div>
                         </div>
                         <div class="screenshot-overlay">
-                            <a href=https://urbano.pythonanywhere.com/" target="_blank" class="view-button">
+                            <a href="https://urbano.pythonanywhere.com/" target="_blank" rel="noopener noreferrer" class="view-button">
                                 <i class="fas fa-external-link-alt"></i>
-                                Voir le projet en ligne
+                                <span>Voir le projet en ligne</span>
                             </a>
                         </div>
                     </div>
@@ -729,9 +1069,9 @@ Cloud PME est une application web interne développée avec Django permettant au
 
                 <!-- CTA Section -->
                 <div class="cta-section">
-                    <a class="cta-button" href="https://urbano.pythonanywhere.com/" target="_blank">
+                    <a class="cta-button" href="https://urbano.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-globe"></i>
-                        Consulter le projet en ligne
+                        <span>Consulter le projet en ligne</span>
                     </a>
                 </div>
             </div>
@@ -781,15 +1121,22 @@ Cloud PME est une application web interne développée avec Django permettant au
         let revealDelay = 0;
         document.querySelectorAll('.reveal').forEach(el => {
             el.style.transitionDelay = `${revealDelay}ms`;
-            revealDelay += 150;
+            revealDelay += 100;
         });
 
         // Parallax effect for background decoration
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const decoration = document.querySelector('.bg-decoration');
-            if (decoration) {
-                decoration.style.transform = `translateY(${scrolled * 0.1}px)`;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const decoration = document.querySelector('.bg-decoration');
+                    if (decoration) {
+                        decoration.style.transform = `translateY(${scrolled * 0.1}px)`;
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
 
@@ -802,34 +1149,87 @@ Cloud PME est une application web interne développée avec Django permettant au
             tag.addEventListener('mouseleave', function() {
                 this.style.animation = '';
             });
+            
+            tag.addEventListener('animationend', function() {
+                this.style.animation = '';
+            });
         });
 
         // Feature cards hover effect
         document.querySelectorAll('.feature-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
                 const icon = this.querySelector('.feature-icon');
-                icon.style.animation = 'drive 1s ease-in-out infinite';
+                if (icon) {
+                    icon.style.animation = 'drive 1s ease-in-out infinite';
+                }
             });
             
             card.addEventListener('mouseleave', function() {
                 const icon = this.querySelector('.feature-icon');
-                icon.style.animation = '';
+                if (icon) {
+                    icon.style.animation = '';
+                }
             });
         });
 
-        // Functions list items animation
-        document.querySelectorAll('.functions-list li').forEach((item, index) => {
-            item.style.animationDelay = `${index * 100}ms`;
-        });
-
         // CTA button interaction
-        document.querySelector('.cta-button')?.addEventListener('mouseenter', function() {
-            this.style.animation = 'pulse 1s ease-in-out';
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+            ctaButton.addEventListener('mouseenter', function() {
+                this.style.animation = 'pulse 1s ease-in-out';
+            });
+
+            ctaButton.addEventListener('mouseleave', function() {
+                this.style.animation = '';
+            });
+            
+            ctaButton.addEventListener('animationend', function() {
+                this.style.animation = '';
+            });
+        }
+
+        // Lazy loading images enhancement
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.src = img.src;
+            });
+        } else {
+            // Fallback for browsers that don't support lazy loading
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+            document.body.appendChild(script);
+        }
+
+        // Optimisation des performances pour mobile
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            // Désactiver certaines animations sur mobile pour de meilleures performances
+            document.querySelectorAll('.bg-decoration').forEach(el => {
+                el.style.display = 'none';
+            });
+        }
+
+        // Gestion du focus pour l'accessibilité
+        document.querySelectorAll('a, button').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.style.outline = '2px solid var(--color1)';
+                this.style.outlineOffset = '2px';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.style.outline = '';
+                this.style.outlineOffset = '';
+            });
         });
 
-        document.querySelector('.cta-button')?.addEventListener('mouseleave', function() {
-            this.style.animation = '';
-        });
+        // Détection de la connexion lente
+        if ('connection' in navigator) {
+            const connection = navigator.connection;
+            if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+                // Désactiver les animations pour les connexions lentes
+                document.body.classList.add('reduced-motion');
+            }
+        }
     </script>
 </body>
 </html>
